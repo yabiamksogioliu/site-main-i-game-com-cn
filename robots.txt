@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yabiamksogioliu.github.io/site-main-i-game-com-cn/sitemap.xml
