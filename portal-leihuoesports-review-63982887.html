@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>雷火电竞 · 数据查询与赛事对照</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f2f7fc;
+      color: #1a2a3a;
+      line-height: 1.6;
+      padding: 1.2rem;
+    }
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* 网格卡片背景 & 蓝绿色点缀 */
+    .grid-bg {
+      background:
+        linear-gradient(135deg, rgba(0, 180, 170, 0.04) 0%, rgba(0, 120, 130, 0.02) 100%);
+      border-radius: 36px;
+      padding: 1.6rem 1rem;
+      box-shadow: 0 4px 12px rgba(0, 140, 150, 0.06);
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #e2f0f0, #d2e8ea);
+      border-radius: 28px;
+      padding: 2.4rem 1.6rem;
+      margin-bottom: 2rem;
+      box-shadow: inset 0 -2px 0 #b7d8d6, 0 8px 18px rgba(0, 90, 95, 0.08);
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #004f56;
+      margin-bottom: 0.6rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 720px;
+      color: #1f434a;
+    }
+    .hero .highlight {
+      display: inline-block;
+      background: #007f7a;
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-right: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #0b5b5e;
+      margin: 1.8rem 0 1rem 0;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid #9bc8c5;
+      display: inline-block;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      margin: 1.5rem 0 0.8rem;
+    }
+    @media (min-width: 560px) {
+      .card-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 860px) {
+      .card-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.4rem 1.2rem;
+      box-shadow: 0 2px 8px rgba(0, 130, 130, 0.05), 0 0 0 1px #d4e8e6;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .card:hover {
+      box-shadow: 0 6px 16px rgba(0, 130, 130, 0.12), 0 0 0 1px #00a39b;
+      transform: translateY(-2px);
+    }
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #00675f;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .card h3::before {
+      content: "▹";
+      color: #00a39b;
+      font-size: 1.3rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: #2b3e45;
+    }
+
+    .scenario-list {
+      background: white;
+      border-radius: 24px;
+      padding: 1.6rem 1.4rem;
+      margin: 1.4rem 0;
+      box-shadow: 0 2px 10px rgba(0, 100, 100, 0.04);
+    }
+    .scenario-list li {
+      list-style: none;
+      padding: 0.5rem 0 0.5rem 1.8rem;
+      position: relative;
+      border-bottom: 1px solid #e1edec;
+      color: #1c3d40;
+    }
+    .scenario-list li:last-child { border-bottom: none; }
+    .scenario-list li::before {
+      content: "•";
+      color: #009f94;
+      font-weight: bold;
+      font-size: 1.4rem;
+      position: absolute;
+      left: 0.2rem;
+      top: 0.4rem;
+    }
+
+    .tip-box {
+      background: #ddeeed;
+      border-radius: 28px;
+      padding: 1.2rem 1.6rem;
+      margin: 1.8rem 0 1rem;
+      border-left: 5px solid #00998d;
+    }
+    .tip-box p {
+      font-size: 0.96rem;
+      color: #1a4045;
+    }
+
+    .faq-mini {
+      background: #f6fcfb;
+      border-radius: 24px;
+      padding: 1.4rem 1.2rem;
+      margin: 1.2rem 0 1.8rem;
+    }
+    .faq-item {
+      padding: 0.5rem 0;
+    }
+    .faq-item strong {
+      color: #005e5a;
+      font-weight: 600;
+      display: block;
+    }
+    .faq-item span {
+      color: #2a4b4e;
+      font-size: 0.95rem;
+    }
+
+    .inline-link {
+      color: #006f6a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #7cbeb9;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .inline-link:hover {
+      color: #00a294;
+      text-decoration-color: #00a294;
+    }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: #5d7a7c;
+      margin-top: 2.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #c7dbd8;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      .hero { padding: 1.8rem 1rem; }
+      .hero h1 { font-size: 1.7rem; }
+      .card { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="grid-bg">
+    <!-- HERO 摘要 -->
+    <div class="hero">
+      <h1>赛事摘要 · 对照 · 延伸</h1>
+      <p>
+        <span class="highlight">日常查询</span> 一份面向赛事关注者的信息聚合页：从基础数据到使用场景，
+        帮助你在浏览前快速建立预期。平台本身由 <a href="https://portal-leihuoesports.com" class="inline-link">雷火电竞</a> 提供赛事信息与数据呈现支持。
+      </p>
+    </div>
+
+    <!-- 亮点：卡片网格 -->
+    <div class="section-title">功能看点</div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>实时对照</h3>
+        <p>选手数据、战队排名与近期交锋记录同屏展示，便于快速比对不同赛事节点的变化。</p>
+      </div>
+      <div class="card">
+        <h3>摘要卡片</h3>
+        <p>每场赛事自动生成关键指标摘要，节省反复翻页的时间，适合赛前快速浏览。</p>
+      </div>
+      <div class="card">
+        <h3>延伸路径</h3>
+        <p>从一场比赛出发，可关联到同战队历史对局、相似阵容数据，辅助战术查阅。</p>
+      </div>
+      <div class="card">
+        <h3>场景过滤</h3>
+        <p>支持按联赛、阶段、地图或英雄/角色进行筛选，减少信息干扰。</p>
+      </div>
+      <div class="card">
+        <h3>移动优先</h3>
+        <p>卡片式布局与自适应排版，手机端横向滑动或纵向浏览均保持清晰。</p>
+      </div>
+      <div class="card">
+        <h3>克制呈现</h3>
+        <p>不强调预测或保证，仅提供可查证的数据关系，由使用者自行判断。</p>
+      </div>
+    </div>
+
+    <!-- 使用建议：场景 -->
+    <div class="section-title">使用建议 · 常见场景</div>
+    <div class="scenario-list">
+      <li><strong>赛前准备：</strong> 查阅双方近期交手记录与关键选手数据，快速建立赛前认知框架。</li>
+      <li><strong>赛后复盘：</strong> 利用摘要卡片回顾经济曲线、击杀时间轴等核心节点。</li>
+      <li><strong>延伸阅读：</strong> 从某一局出发，探索相似阵容或地图的历史胜率分布，辅助理解战术逻辑。</li>
+      <li><strong>日常浏览：</strong> 无需登录即可查看公开数据，适合碎片时间快速浏览赛况变化。</li>
+    </div>
+
+    <!-- 可信但克制的说明 -->
+    <div class="tip-box">
+      <p><strong>数据说明：</strong> 平台所有赛事数据来自公开接口与授权合作方，<a href="https://portal-leihuoesports.com" class="inline-link">雷火电竞</a> 仅提供整理与呈现，不构成任何形式的投注建议或结果保证。数据延迟与误差属于正常情况，请以官方赛场为准。</p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="section-title">常见疑问 · 摘要</div>
+    <div class="faq-mini">
+      <div class="faq-item">
+        <strong>数据更新频率？</strong>
+        <span>主流联赛通常每分钟同步一次，部分赛事存在 2-5 分钟延迟。</span>
+      </div>
+      <div class="faq-item">
+        <strong>是否需要注册？</strong>
+        <span>浏览基础数据与摘要无需账户；部分个性化功能（如收藏对照）需要登录。</span>
+      </div>
+      <div class="faq-item">
+        <strong>移动端体验如何？</strong>
+        <span>卡片化设计适配多数手机屏幕，推荐使用最新版浏览器以获得最佳布局。</span>
+      </div>
+      <div class="faq-item">
+        <strong>与官方数据的关系？</strong>
+        <span>本平台为第三方数据整合页面，不替代赛事官方渠道。如需原始数据请参考对应联赛官网。</span>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      · 信息聚合 · 对照参考 · 公开数据 · 移动友好 ·
+    </div>
+  </div>
+</div>
+</body>
+</html>
